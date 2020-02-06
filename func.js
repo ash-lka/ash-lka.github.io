@@ -77,7 +77,7 @@ var app = new Vue({
             date: ''
         },
         notes: [{
-            text: 'Minimal Notes',
+            text: 'PomoNotes',
             date: new Date(Date.now()).toLocaleString()
         }]
     },

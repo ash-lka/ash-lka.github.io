@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PomoNotes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" rel="stylesheet" type="text/css" />
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+
+    <div id="title"><h1>PomoNotes</h1></div>
+    <div id="pomo">
+      <h4>{{(timer_state == 'work') ? 'You have to work for the next:' : 'You are on break for the next:'}}</h4>
+      <h1>{{Math.floor(time_remaining / 60).toString().padStart(2, "0")}}:{{(time_remaining % 60).toString().padStart(2, "0")}}</h1>
+      <button class="button is-rounded is-primary" v-on:click="timer('start')" :disabled="timer_running">Start Timer</button>
+      <button class="button is-rounded" v-on:click="timer('pause')" :disabled="!timer_running">{{(timer_paused) ? 'Resume Timer' : 'Pause Timer'}}</button>
+      <button class="button is-rounded" v-on:click="timer('reset')" :disabled="!timer_running">Reset Timer</button>
+      <button class="button is-rounded" v-on:click="timer('skip')" :disabled="!timer_running || timer_paused">{{(timer_state == 'work') ? 'I could use a break now :P' : 'I gotta get back to work!'}}</button>
+    </div>
+    <div id="notes">
+
+      <h2>{{title}}</h2>
+
+      <textarea autofocus placeholder="Insert your note here..." v-model="note.text"></textarea>
+
+      <button style="
+        margin-bottom: 7px;
+        font-family: Montserrat;
+        width: 16em;
+        align-self: center;" class="button is-rounded" @click="addNote">Submit</button>
+
+      <div v-for="(note, index) in notes">
+      <div class ="top">
+      <button class="close" @click="removeNote(index)"></button>
+      <i>{{note.date}}</i>
+      </div>
+      {{note.text}}
+      </div>
+    <script src="func.js"></script>
+  </div>
+  </body>
+</html>

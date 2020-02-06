@@ -68,7 +68,7 @@ try {
           alert("This browser does not support notifications!");
       });
   } else {
-      throw error;                                                                                                                                                                                       
+      alert("Carry on!");                                                                                                                                                                                       
   }                                                                                                                                                                                                      
 }    
 

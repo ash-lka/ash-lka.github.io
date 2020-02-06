@@ -56,9 +56,22 @@ var app = new Vue({
   }
 })
 
-Notification.requestPermission().then(function(result) {
-  console.log(result);
-});
+//upon finalising the app and hosting it I faced an issue while viewing it on my iphone due to
+// the browser not supporting notifications and the error not being handled.
+//So I implemented a try, catch.
+try {
+  Notification.requestPermission()
+      .then(() => doSomething())                                                                                                                                               
+} catch (error) {
+  if (error instanceof TypeError) {
+      Notification.requestPermission(() => {                                                                                                                                                             
+          alert("This browser does not support notifications!");
+      });
+  } else {
+      throw error;                                                                                                                                                                                       
+  }                                                                                                                                                                                                      
+}    
+
 
 function spawnNotification(body, icon, title) {
   var options = {
